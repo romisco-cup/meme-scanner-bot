@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meme Coin Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <h1>Meme Coin Dashboard</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Discovered At</th>
+                <th>Name</th>
+                <th>Symbol</th>
+                <th>Price</th>
+                <th>Volume</th>
+                <th>Liquidity</th>
+                <th>Holders</th>
+                <th>Twitter Trending</th>
+                <th>Alert Sent</th>
+                <th>Links</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for token in tokens %}
+            <tr>
+                <td>{{ token['discovered_at'] }}</td>
+                <td>{{ token['name'] }}</td>
+                <td>{{ token['symbol'] }}</td>
+                <td>${{ "%.8f"|format(token['price']) }}</td>
+                <td>${{ "%.2f"|format(token['volume']) }}</td>
+                <td>${{ "%.2f"|format(token['liquidity']) }}</td>
+                <td>{{ token['holders'] }}</td>
+                <td>{{ 'Yes' if token['twitter_trending'] else 'No' }}</td>
+                <td>{{ 'Yes' if token['telegram_alert_sent'] else 'No' }}</td>
+                <td>
+                    <a href="{{ token['dexscreener_url'] }}" target="_blank">Dexscreener</a><br>
+                    <a href="{{ token['rugcheck_url'] }}" target="_blank">Rugcheck</a><br>
+                    <a href="{{ token['bubblemap_url'] }}" target="_blank">BubbleMap</a><br>
+                    <a href="{{ token['tweetscout_url'] }}" target="_blank">TweetScout</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
